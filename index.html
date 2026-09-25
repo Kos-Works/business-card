@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ivan Kossko</title>
 <meta name="description" content="Contact details for Ivan Kossko">
-<meta name="theme-color" content="#1e1f22">
+<meta name="theme-color" content="#2c2d31">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
@@ -43,6 +46,7 @@
     box-shadow: 0 40px 80px -30px rgba(0,0,0,.8), 0 10px 30px -15px rgba(0,0,0,.6);
     animation: rise .7s cubic-bezier(.2,.7,.2,1) both;
   }
+  @keyframes fade { from { opacity: 0; } }
   @keyframes rise { from { opacity: 0; transform: translateY(16px); } }
 
   /* Diagonal gold stripes, top-right corner */
@@ -121,6 +125,29 @@
   }
   .save:active { filter: brightness(.9); }
 
+  .diag-b, .botline { display: none; }
+
+  /* On phones: the card fills the whole screen, edge to edge */
+  @media (max-width: 520px) {
+    body { padding: 0; align-items: stretch; background: var(--card); }
+    .card {
+      max-width: none;
+      min-height: 100vh;
+      min-height: 100dvh;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: calc(150px + env(safe-area-inset-top)) 0 calc(150px + env(safe-area-inset-bottom));
+      animation: fade .6s ease both;
+    }
+    .head { padding-top: 0; }
+    .diag { top: env(safe-area-inset-top); }
+    .topline { top: calc(110px + env(safe-area-inset-top)); }
+    .diag-b, .botline { display: block; }
+    .diag-b { position: absolute; left: 0; bottom: env(safe-area-inset-bottom); width: 190px; height: 110px; transform: rotate(180deg); pointer-events: none; }
+    .botline { position: absolute; left: 0; right: 0; bottom: calc(110px + env(safe-area-inset-bottom)); height: 1px; background: var(--gold-grad); }
+  }
 </style>
 </head>
 <body>
@@ -153,6 +180,21 @@
     <ul id="links"></ul>
     <button class="save" id="save">Save contact</button>
   </div>
+  <div class="botline"></div>
+  <svg class="diag-b" viewBox="0 0 190 110" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="g2" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0" stop-color="#a57c43"/><stop offset=".5" stop-color="#c9a063"/><stop offset="1" stop-color="#e6c48a"/>
+      </linearGradient>
+    </defs>
+    <g stroke="url(#g2)" stroke-width="3.5">
+      <line x1="40"  y1="-10" x2="-56" y2="134" transform="translate(95,0)"/>
+      <line x1="40"  y1="-10" x2="-56" y2="134" transform="translate(125,0)"/>
+      <line x1="40"  y1="-10" x2="-56" y2="134" transform="translate(155,0)"/>
+      <line x1="40"  y1="-10" x2="-56" y2="134" transform="translate(185,0)"/>
+      <line x1="40"  y1="-10" x2="-56" y2="134" transform="translate(215,0)"/>
+    </g>
+  </svg>
 </main>
 
 <script>
