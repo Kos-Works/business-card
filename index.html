@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ivan Kossko</title>
+<meta name="description" content="Contact details for Ivan Kossko">
+<meta name="theme-color" content="#1e1f22">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1e1f22;
+    --card: #2c2d31;
+    --gold: #c9a063;
+    --gold-grad: linear-gradient(135deg, #e6c48a 0%, #c9a063 45%, #a57c43 100%);
+    --text: #e9e3d8;
+    --muted: #9a958c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { min-height: 100%; }
+  body {
+    background: radial-gradient(ellipse at 50% 40%, #3a3b40 0%, var(--bg) 70%);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: "Josefin Sans", system-ui, sans-serif;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .card {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    background: var(--card);
+    overflow: hidden;
+    box-shadow: 0 40px 80px -30px rgba(0,0,0,.8), 0 10px 30px -15px rgba(0,0,0,.6);
+    animation: rise .7s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } }
+
+  /* Diagonal gold stripes, top-right corner */
+  .diag {
+    position: absolute;
+    top: 0; right: 0;
+    width: 190px; height: 110px;
+    pointer-events: none;
+  }
+
+  .topline { position: absolute; top: 110px; left: 0; right: 0; height: 1px; background: var(--gold-grad); }
+  .head { padding: 150px 32px 0; position: relative; }
+
+
+  h1 {
+    font-weight: 400;
+    font-size: 28px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    background: var(--gold-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .role {
+    margin-top: 10px;
+    font-size: 12px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .rule {
+    height: 1px;
+    margin: 32px 0 0;
+    background: var(--gold-grad);
+  }
+
+  .body { padding: 32px 32px 36px; }
+
+  ul {
+    list-style: none;
+    display: grid;
+    gap: 24px;
+    padding-left: 18px;
+    border-left: 1px solid rgba(201,160,99,.35);
+  }
+  li a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 15px;
+    letter-spacing: .04em;
+    overflow-wrap: anywhere;
+    padding-top: 2px;
+    transition: color .2s;
+  }
+  li a:hover, li a:active { color: var(--gold); }
+  li svg { flex: none; width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.5; margin-top: -3px; }
+
+  .save {
+    margin-top: 36px;
+    width: 100%;
+    padding: 17px 16px 14px;
+    border: 0;
+    background: var(--gold-grad);
+    color: #222;
+    font: 600 13px "Josefin Sans", system-ui, sans-serif;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: filter .2s;
+  }
+  .save:active { filter: brightness(.9); }
+
+</style>
+</head>
+<body>
+
+<main class="card">
+  <svg class="diag" viewBox="0 0 190 110" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="g" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0" stop-color="#a57c43"/><stop offset=".5" stop-color="#c9a063"/><stop offset="1" stop-color="#e6c48a"/>
+      </linearGradient>
+    </defs>
+    <g stroke="url(#g)" stroke-width="3.5">
+      <line x1="40"  y1="-10" x2="-56" y2="134" transform="translate(95,0)"/>
+      <line x1="40"  y1="-10" x2="-56" y2="134" transform="translate(125,0)"/>
+      <line x1="40"  y1="-10" x2="-56" y2="134" transform="translate(155,0)"/>
+      <line x1="40"  y1="-10" x2="-56" y2="134" transform="translate(185,0)"/>
+      <line x1="40"  y1="-10" x2="-56" y2="134" transform="translate(215,0)"/>
+    </g>
+  </svg>
+
+  <div class="topline"></div>
+
+  <div class="head">
+    <h1 id="name"></h1>
+    <p class="role" id="role"></p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="body">
+    <ul id="links"></ul>
+    <button class="save" id="save">Save contact</button>
+  </div>
+</main>
+
+<script>
+/* ===== EDIT YOUR DETAILS HERE ===== */
+const ME = {
+  firstName: "Ivan",
+  lastName:  "Kossko",
+  title:     "Graduate Project Manager",
+  phone:     "+44 7511 473279",
+  email:     "vanyakossko2003@gmail.com",
+  linkedin:  "https://www.linkedin.com/in/ivan-kossko/"
+};
+/* ================================== */
+
+document.getElementById("name").textContent = `${ME.firstName} ${ME.lastName}`;
+document.getElementById("role").textContent = ME.title;
+document.title = `${ME.firstName} ${ME.lastName}`;
+
+const icon = {
+  phone: '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z"/>',
+  email: '<rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 6 9 7 9-7"/>',
+  web:   '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  li:    '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-7M12 13a3 3 0 0 1 6 0v4"/>',
+  gh:    '<path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5a3 3 0 0 0-1-2.5c3 0 6-1.5 6-6a4.5 4.5 0 0 0-1.3-3.2 4 4 0 0 0-.1-3.3s-1-.3-3.4 1.3a11.5 11.5 0 0 0-6 0C6.8 2.2 5.8 2.5 5.8 2.5a4 4 0 0 0-.1 3.3A4.5 4.5 0 0 0 4.4 9c0 4.5 3 6 6 6a3 3 0 0 0-1 2.5V21"/>'
+};
+const strip = u => u.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+const rows = [
+  ["phone", ME.phone,    "tel:" + (ME.phone || "").replace(/\s/g, ""), ME.phone],
+  ["email", ME.email,    "mailto:" + ME.email,                        ME.email],
+  ["web",   ME.website,  ME.website,                                  ME.website && strip(ME.website)],
+  ["li",    ME.linkedin, ME.linkedin,                                 "LinkedIn"],
+  ["gh",    ME.github,   ME.github,                                   ME.github && strip(ME.github)]
+].filter(r => r[1]);
+
+document.getElementById("links").innerHTML = rows.map(([k, , href, label]) => {
+  const ext = href.startsWith("http") ? ' target="_blank" rel="noopener"' : "";
+  return `<li><a href="${href}"${ext}><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">${icon[k]}</svg>${label}</a></li>`;
+}).join("");
+
+// Save contact: builds a vCard the phone opens straight into Contacts
+document.getElementById("save").addEventListener("click", () => {
+  const v = [
+    "BEGIN:VCARD", "VERSION:3.0",
+    `N:${ME.lastName};${ME.firstName};;;`,
+    `FN:${ME.firstName} ${ME.lastName}`,
+    ME.title    && `TITLE:${ME.title}`,
+    ME.phone    && `TEL;TYPE=CELL:${ME.phone}`,
+    ME.email    && `EMAIL:${ME.email}`,
+    ME.website  && `URL:${ME.website}`,
+    ME.linkedin && `URL;TYPE=LinkedIn:${ME.linkedin}`,
+    ME.github   && `URL;TYPE=GitHub:${ME.github}`,
+    "END:VCARD"
+  ].filter(Boolean).join("\r\n");
+  const blob = new Blob([v], { type: "text/vcard" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${ME.firstName}-${ME.lastName}.vcf`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+</script>
+</body>
+</html>
