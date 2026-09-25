@@ -202,7 +202,7 @@
 const ME = {
   firstName: "Ivan",
   lastName:  "Kossko",
-  title:     "Graduate Project Manager",
+  title:     "",
   phone:     "+44 7511 473279",
   email:     "vanyakossko2003@gmail.com",
   linkedin:  "https://www.linkedin.com/in/ivan-kossko/"
@@ -210,7 +210,8 @@ const ME = {
 /* ================================== */
 
 document.getElementById("name").textContent = `${ME.firstName} ${ME.lastName}`;
-document.getElementById("role").textContent = ME.title;
+const roleEl = document.getElementById("role");
+if (ME.title) roleEl.textContent = ME.title; else roleEl.remove();
 document.title = `${ME.firstName} ${ME.lastName}`;
 
 const icon = {
